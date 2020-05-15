@@ -72,3 +72,5 @@ def writeDB():
 
 client = MyClient()
 client.run(token)
+
+input("Press Enter to exit")
