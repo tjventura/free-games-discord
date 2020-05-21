@@ -1,6 +1,8 @@
 import discord, time, random, json 
 import epic_games_parser.parser as parser
 
+# Variables
+
 messages = ['WOW some free games available my dudes!', 
     'I am currently working but here are the free games that i could find.',
     'A computer? A machine? I am a bot! and i have games for you!',
@@ -8,6 +10,13 @@ messages = ['WOW some free games available my dudes!',
     'Hello its me, boterino, grab your free games!']
 
 epicGames = ['','','','','','']
+
+# Channel IDs
+programming = 472130993592205313
+freeGames = 710855974633734165
+
+
+# The code stuff yeeks
 
 with open('epicGamesCache.txt') as fp:
     lines = fp.readlines()
@@ -44,7 +53,7 @@ def embedMessage(games):
 
 async def timer(client):
     time.sleep(10)
-    print('30 secs have passed')
+    print('heartbeat - 1h')
     await sendEmbedMessage(client)
 
 async def sendEmbedMessage(client):
@@ -56,8 +65,8 @@ async def sendEmbedMessage(client):
             DBChanged = True
             epicGames[i] = games['title'] + '\n'
             if i == 0:
-                await client.get_channel(472130993592205313).send(random.choice(messages))
-            await client.get_channel(472130993592205313).send(embed=embedMessage(games))
+                await client.get_channel(programming).send(random.choice(messages) + ' @everyone')
+            await client.get_channel(programming).send(embed=embedMessage(games))
         i+=1
     i = 0
 
