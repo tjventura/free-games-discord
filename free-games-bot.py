@@ -37,6 +37,8 @@ def embedMessage(games):
     embedMessage.add_field(name="Ends at: ", value=endDate)
     embedMessage.add_field(name="Grab them at: ", value='www.epicgames.com', inline=False)
     embedMessage.set_thumbnail(url=thumbnail)
+    print('url: ' + thumbnail)
+    print('title ' + gameTitle)
     return embedMessage
 
 
@@ -50,12 +52,12 @@ async def sendEmbedMessage(client):
     i = 0
     DBChanged = False
     for games in gamesInfo:
-        if epicGames[i] != (games['title'] + '\n'):
+        if epicGames[i] != (games['title'] + '\n') and games['title'] != 'title':
             DBChanged = True
             epicGames[i] = games['title'] + '\n'
             if i == 0:
-                await client.get_channel(710855974633734165).send(random.choice(messages))
-            await client.get_channel(710855974633734165).send(embed=embedMessage(games))
+                await client.get_channel(472130993592205313).send(random.choice(messages))
+            await client.get_channel(472130993592205313).send(embed=embedMessage(games))
         i+=1
     i = 0
 
@@ -73,4 +75,4 @@ def writeDB():
 client = MyClient()
 client.run(token)
 
-input("Press Enter to exit")
+input()
