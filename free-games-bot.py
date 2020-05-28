@@ -52,9 +52,13 @@ def embedMessage(games):
 
 
 async def timer(client):
-    time.sleep(10)
-    print('heartbeat - 1h')
-    await sendEmbedMessage(client)
+    try:
+        time.sleep(10)
+        print('heartbeat - 1h')
+        await sendEmbedMessage(client)
+    except:
+        time.sleep(300)
+        pass
 
 async def sendEmbedMessage(client):
     gamesInfo = json.loads(parser.fetcher())
