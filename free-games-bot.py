@@ -1,4 +1,4 @@
-import discord, time, random, json 
+import discord, time, random, json, urllib.parse
 import epic_games_parser.parser as parser
 
 # Variables
@@ -33,21 +33,23 @@ token = f.read()
 class MyClient(discord.Client):
     async def on_ready(self):
         print('Logged on as {0}!'.format(self.user))
-        await sendEmbedMessage(client)
+        await timer(client)
 
 def embedMessage(games):
     gameTitle = games['title']
     startDate = games['startDate'].replace('T', '  ')[:-5]
     endDate = games['endDate'].replace('T', '  ')[:-5]
-    thumbnail = games['thumbnail']
+    thumbnail = games['thumbnail'].replace(' ', '%20')
+
+    print('url: ' + thumbnail)
+    print('title ' + gameTitle)
 
     embedMessage = discord.Embed(title = gameTitle,  colour=discord.colour.Color.blurple())
     embedMessage.add_field(name="Starts at: ", value=startDate)
     embedMessage.add_field(name="Ends at: ", value=endDate)
     embedMessage.add_field(name="Grab them at: ", value='www.epicgames.com', inline=False)
     embedMessage.set_thumbnail(url=thumbnail)
-    print('url: ' + thumbnail)
-    print('title ' + gameTitle)
+
     return embedMessage
 
 
@@ -69,8 +71,8 @@ async def sendEmbedMessage(client):
             DBChanged = True
             epicGames[i] = games['title'] + '\n'
             if i == 0:
-                await client.get_channel(freeGames).send(random.choice(messages) + ' @everyone')
-            await client.get_channel(freeGames).send(embed=embedMessage(games))
+                await client.get_channel(programming).send(random.choice(messages) + ' @everyone')
+            await client.get_channel(programming).send(embed=embedMessage(games))
         i+=1
     i = 0
 
