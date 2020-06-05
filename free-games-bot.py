@@ -71,8 +71,8 @@ async def sendEmbedMessage(client):
             DBChanged = True
             epicGames[i] = games['title'] + '\n'
             if i == 0:
-                await client.get_channel(programming).send(random.choice(messages) + ' @everyone')
-            await client.get_channel(programming).send(embed=embedMessage(games))
+                await client.get_channel(freeGames).send(random.choice(messages) + ' @everyone')
+            await client.get_channel(freeGames).send(embed=embedMessage(games))
         i+=1
     i = 0
 
