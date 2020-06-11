@@ -9,7 +9,7 @@ messages = ['WOW some free games available my dudes!',
     'My boss is a completly jerk, i have to do all the work around here. Here are some free games.',
     'Hello its me, boterino, grab your free games!']
 
-epicGames = ['','','','','','']
+epicGames = ['','','','','','','','','','']
 
 # Channel IDs
 programming = 472130993592205313
@@ -58,7 +58,8 @@ async def timer(client):
         time.sleep(10)
         print('heartbeat - 1h')
         await sendEmbedMessage(client)
-    except:
+    except Exception as e:
+        print(e)
         time.sleep(300)
         pass
 
@@ -67,11 +68,13 @@ async def sendEmbedMessage(client):
     i = 0
     DBChanged = False
     for games in gamesInfo:
-        if epicGames[i] != (games['title'] + '\n') and games['title'] != 'title':
+        print('test1: ' + games['title'] + '   ' + games['thumbnail'])
+        if epicGames[i] != (games['title'] + '\n') and games['title'] != 'title' and games['thumbnail'] != 'thumbnail':
+            print('test2: ' + games['title'] + '   ' + games['thumbnail'])
             DBChanged = True
             epicGames[i] = games['title'] + '\n'
             if i == 0:
-                await client.get_channel(freeGames).send(random.choice(messages) + ' @everyone')
+               await client.get_channel(freeGames).send(random.choice(messages) + ' @everyone')
             await client.get_channel(freeGames).send(embed=embedMessage(games))
         i+=1
     i = 0
